@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+
+{% block title %} - Final{% endblock %}
+{% block links %}<link rel="stylesheet" href="{{ baseUri }}./static/final.css">{% endblock %}
+
+{% block main %}
+    <div class="final-page">
+        <section>
+            <h1 class="titulo-pagina">Títulos del ayer</h1>
+            <ul>
+                <li><a href="{{ baseUri }}./sobre-el-tiempo">Sobre el tiempo</a></li>
+                <li><a href="{{ baseUri }}./el-arbol-de-la-vida">El árbol de la vida</a></li>
+            </ul>
+        </section>
+    </div>
+{% endblock %}
