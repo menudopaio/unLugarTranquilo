@@ -5,3 +5,4 @@ __pycache__/
 .log
 .vscode/
 templates/excesivamente-humano.html
+templates/constante-cambio.html
