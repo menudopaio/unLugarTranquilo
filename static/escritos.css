@@ -1,11 +1,11 @@
-.final-page ul { text-align: center; }
+.escritos-page ul { text-align: center; }
 
-.final-page ul li {
+.escritos-page ul li {
     padding: 8px 0;
     list-style: none;
 }
 
-.final-page ul li a {
+.escritos-page ul li a {
     text-decoration: none;
     color: #717171;
     font-size: 20px;

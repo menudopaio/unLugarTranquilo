@@ -43,6 +43,15 @@ def arbolVida():
     baseUri = "."
     return render_template("el-arbol-de-la-vida.html", baseUri=baseUri)
 
+@app.route("/conciencia-en-su-medida/")
+def concienciaEnSuMedida():
+    baseUri = "."
+    return render_template("conciencia-en-su-medida.html", baseUri=baseUri)
+
+@app.route("/excesivamente-humano/")
+def excesivamenteHumano():
+    baseUri = "."
+    return render_template("excesivamente-humano.html", baseUri=baseUri)
 
 @app.route("/otros/")
 def otros():
