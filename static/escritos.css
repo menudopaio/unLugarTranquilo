@@ -13,3 +13,7 @@
 .tachado {
     text-decoration: line-through;
 }
+.constante-cambio-page p a {
+    text-decoration: none;
+    color: var(--color-rosa);
+}

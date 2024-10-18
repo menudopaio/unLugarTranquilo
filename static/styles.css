@@ -1,3 +1,8 @@
+:root {
+    --color-rosa: #cf109c;
+    --color-azul: #45aaaa;
+}
+
 * {
     font-family: "Montserrat", sans-serif;
     margin: 0;
@@ -47,7 +52,7 @@ main {
     margin: 25px auto;
     text-align: center;
     font-size: 36px;
-    color: #45aaaa;
+    color: var(--color-azul);
 }
 
 .inicio-page {
@@ -62,7 +67,7 @@ main {
     margin-right: 20px;
     margin-left: auto;
     font-weight: 600;
-    color: #cf109c;
+    color: var(--color-rosa);
 }
 .escritos {
     padding: 30px 60px;
