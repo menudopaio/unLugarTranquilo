@@ -48,6 +48,11 @@ def concienciaEnSuMedida():
     baseUri = "."
     return render_template("conciencia-en-su-medida.html", baseUri=baseUri)
 
+@app.route("/conciencia-en-su-medida-editado/")
+def concienciaEnSuMedidaEditado():
+    baseUri = "."
+    return render_template("conciencia-en-su-medida-editado.html", baseUri=baseUri)
+
 @app.route("/excesivamente-humano/")
 def excesivamenteHumano():
     baseUri = "."
