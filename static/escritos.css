@@ -1,0 +1,19 @@
+.escritos-page ul { text-align: center; }
+
+.escritos-page ul li {
+    padding: 8px 0;
+    list-style: none;
+}
+
+.escritos-page ul li a {
+    text-decoration: none;
+    color: #717171;
+    font-size: 20px;
+}
+.tachado {
+    text-decoration: line-through;
+}
+.constante-cambio-page p a {
+    text-decoration: none;
+    color: var(--color-rosa);
+}
