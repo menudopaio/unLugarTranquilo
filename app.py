@@ -32,6 +32,10 @@ def inicio():
 def escritos():
     baseUri = "."
     return render_template("escritos.html", baseUri=baseUri)
+@app.route("/el-sentido-de-la-vida/")
+def elSentidoDeLaVida():
+    baseUri = "."
+    return render_template("el-sentido-de-la-vida.html", baseUri=baseUri)
 
 @app.route("/sobre-el-tiempo/")
 def sobreElTiempo():
@@ -48,6 +52,12 @@ def concienciaEnSuMedida():
     baseUri = "."
     return render_template("conciencia-en-su-medida.html", baseUri=baseUri)
 
+@app.route("/mi-hermoso-jardin/")
+def miHermosoJardin():
+    baseUri = "."
+    return render_template("mi-hermoso-jardin.html", baseUri=baseUri)
+
+
 """ @app.route("/conciencia-en-su-medida-editado/")
 def concienciaEnSuMedidaEditado():
     baseUri = "."
@@ -57,11 +67,11 @@ def concienciaEnSuMedidaEditado():
 def excesivamenteHumano():
     baseUri = "."
     return render_template("excesivamente-humano.html", baseUri=baseUri)
-
+"""
 @app.route("/constante-cambio/")
 def constanteCambio():
     baseUri = "."
-    return render_template("constante-cambio.html", baseUri=baseUri) """
+    return render_template("constante-cambio.html", baseUri=baseUri)
 
 
 @app.route("/otros/")

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 
-{% block title %} - Escritos{% endblock %}
+{% block title %}Escritos{% endblock %}
 {% block links %}<link rel="stylesheet" href="{{ baseUri }}./static/escritos.css">{% endblock %}
 
 {% block main %}
@@ -10,17 +10,21 @@
             <h1 class="titulo-pagina">Títulos del ayer</h1>
             <ul>
                 <!-- 18/10/2024 -->
-                <li><a href="{{ baseUri }}./constante-cambio">Constante cambio(En proceso)</a></li>
+                <li><a href="{{ baseUri }}./constante-cambio" class="disabled"><span class="tachado">Constante cambio(En proceso)</span></a></li>
                 <!-- 18/04/2018 -->
-                <li><a href="{{ baseUri }}./excesivamente-humano">Excesivamente humano(No subido)</a></li>
+                <!-- <li><a href="{{ baseUri }}./excesivamente-humano" class="disabled"><span class="tachado">Excesivamente humano(No subido)</span></a></li> -->
                 <!-- 18/10/2024 -->
-                <li><a href="{{ baseUri }}./conciencia-en-su-medida-editado">Conciencia en su medida(editado)</a></li>
+                <!-- <li><a href="{{ baseUri }}./conciencia-en-su-medida-editado" class="disabled"><span class="tachado">Conciencia en su medida(editado)</span></a></li> -->
                 <!-- 20/03/2018 -->
-                <li><a href="{{ baseUri }}./conciencia-en-su-medida">Conciencia en su medida(original)</a></li>
+                <li><a href="{{ baseUri }}./conciencia-en-su-medida">Conciencia en su medida</a></li>
                 <!-- 14/03/2018 -->
                 <li><a href="{{ baseUri }}./sobre-el-tiempo">Sobre el tiempo</a></li>
                 <!-- 08/02/2018 -->
                 <li><a href="{{ baseUri }}./el-arbol-de-la-vida">El árbol de la vida</a></li>
+                <!-- Mediados ~ 2017 -->
+                <li><a href="{{ baseUri }}./mi-hermoso-jardin">Mi hermoso jardín</a></li>
+                <!-- 19/10/2012 -->
+                <li><a href="{{ baseUri }}./el-sentido-de-la-vida">El Sentido de la Vida</a></li>
             </ul>
         </section>
     </div>
