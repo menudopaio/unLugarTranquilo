@@ -8,6 +8,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 header {
@@ -55,9 +56,6 @@ main {
     color: var(--color-azul);
 }
 
-.inicio-page {
-    padding: 30px 120px;
-}
 .cabecera {
     display: flex;
     flex-direction: column;
@@ -69,9 +67,10 @@ main {
     font-weight: 600;
     color: var(--color-rosa);
 }
-.escritos {
-    padding: 30px 60px;
+.escritos, .inicio-page {
+    padding: 30px 120px;
 }
+
 .escritos p, .inicio-page p {
     text-indent: 2em;
     line-height: 1.8;
@@ -99,4 +98,16 @@ main {
         39% 35%
     );
     margin: 13px 0;
+}
+
+.tachado {
+    text-decoration-color: rgb(180, 184, 127);
+    text-decoration: line-through;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1px;
+}
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: grey;
 }
