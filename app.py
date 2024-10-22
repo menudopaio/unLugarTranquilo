@@ -67,12 +67,12 @@ def concienciaEnSuMedidaEditado():
 def excesivamenteHumano():
     baseUri = "."
     return render_template("excesivamente-humano.html", baseUri=baseUri)
-"""
+
 @app.route("/constante-cambio/")
 def constanteCambio():
     baseUri = "."
     return render_template("constante-cambio.html", baseUri=baseUri)
-
+"""
 
 @app.route("/otros/")
 def otros():
