@@ -5,6 +5,8 @@ let flowFieldAnimation;
 let angle;
 let secondsPast = 0;
 let minute = 0;
+let hour = 0;
+let hourAngle = 180;
 let fiveMinutes = 0;
 let fiveMinutesAngle = 180;
 let meetingPoint = {
@@ -54,7 +56,7 @@ class FlowFieldEffect {
 
         this.fpsInterval = 1000 / 20; // 20 FPS
         this.lastTime = 0;
-        this.strokeWidth = 2; 
+        this.strokeWidth = 3; 
         this.#ctx.lineWidth = this.strokeWidth;
 
         // Definir el punto de reunión
@@ -65,7 +67,7 @@ class FlowFieldEffect {
     }
     
     #draw(x, y, secs) {
-        if (secs % 60 === 0) {
+        if (secondsPast % 60 === 0) {
             minute++;
             console.log("Minutos: " + minute);
         }
@@ -76,18 +78,27 @@ class FlowFieldEffect {
             fiveMinutes++;
             fiveMinutesAngle = (fiveMinutesAngle - 30) % 360;
             console.log("5 minutos: " + fiveMinutes, "fiveMinutesAngle: " + fiveMinutesAngle);
-            
+        }
+        if (secondsPast % 120 === 0) {
+            hour++;
+            hourAngle = (hourAngle - 30) % 360;
+            console.log("Hora: " + hour);
+            this.showHour(hour);
         }
         if (minute > 0 && minute % 5 === 0) {
-            const gatheringInterval = setInterval(this.animateGathering(fiveMinutesAngle), 1000 * 60 * 5);
-            /* this.animateGathering(fiveMinutesAngle); */
+            /* const gatheringInterval = setInterval(this.animateGathering(fiveMinutesAngle), 1000 * 60 * 5); */
+            this.animateGathering(fiveMinutesAngle, secondsPast);
         }
+        
 
-        length = secs % 300; // Ajusta el tamaño de las líneas según el tiempo
-        if (length < 30) { length = 30; }
+        length = secs % 300 + Math.random() * 25; // Ajusta el tamaño de las líneas según el tiempo
+        if (length < 30) { length = 30 + Math.random() * 15; }
         this.#ctx.beginPath();
         this.#ctx.moveTo(x, y);
-        
+        this.#color = this.angle * 180 / Math.PI;
+        this.#ctx.strokeWidth = minute % 5 + 2;
+        this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
+
         const endX = x + length * Math.sin(this.angle);
         const endY = y + length * Math.cos(this.angle);
         
@@ -98,25 +109,51 @@ class FlowFieldEffect {
         this.#ctx.stroke();
     }
 
-    animateGathering(fiveMinutesAngle) {
+    showHour(hour) {
+        const horaActual = hour;
+        const horaActualAngle = ((hour * 5) + 180) * Math.PI / 180;
+        console.log("hora: " + hour, "horaAngle: " + horaActualAngle);
+        
+
+        this.#ctx.beginPath();
+        this.#ctx.moveTo(this.#width / 2, this.#height / 2);
+        this.#color = horaActual * 180 / Math.PI;
+        
+        this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
+
+        const len = 100;
+        const endX = len * Math.sin(horaActualAngle);
+        const endY = len * Math.cos(horaActualAngle);
+        
+        // Guardar línea dibujada
+        lines.push({ startX: this.#width / 2, startY: this.#height / 2, endX: endX, endY: endY }); 
+        
+        this.#ctx.lineTo(endX, endY);
+        this.#ctx.stroke();
+
+    }
+
+    animateGathering(fiveMinutesAngle, secs) {
         /* cancelAnimationFrame(flowFieldAnimation); */
         
         // Calcular el nuevo punto de reunión basado en el número de reuniones
         const fmaRad = fiveMinutesAngle * Math.PI / 180;
-        console.log("fmaRad: " + fmaRad);
         this.meetingPoint = {
             x: this.#width / 2 + Math.sin(fmaRad) * 200,
             y: this.#height / 2 + Math.cos(fmaRad) * 200
         };
 
         // Limpiar el canvas donde se dibujan las agujas
-        this.#ctx.clearRect(this.#width / 2 - 300, this.#height / 2 - 300, 600, 600,); // Cambia el área según tu diseño
+        this.#ctx.clearRect(0, 0, this.#width, this.#height); // Cambia el área según tu diseño
 
         // Animar las líneas hacia el punto de reunión
         lines.forEach((line) => {
+            
             // Calcular la dirección hacia el punto de reunión
             const deltaX = (this.meetingPoint.x - line.endX) * 0.05; // Movimiento hacia el punto de reunión
             const deltaY = (this.meetingPoint.y - line.endY) * 0.05; // Movimiento hacia el punto de reunión
+            
+            
 
             // Actualizar las coordenadas finales
             line.endX += deltaX;
@@ -127,6 +164,7 @@ class FlowFieldEffect {
 
             // Dibujar la línea en su nueva posición
             this.#ctx.beginPath();
+            this.#ctx.strokeWidth = minute % 5 + 2;
             this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
             this.#ctx.moveTo(line.startX, line.startY);
             this.#ctx.lineTo(line.endX, line.endY);
@@ -168,6 +206,7 @@ class FlowFieldEffect {
             this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
             
             // Dibujar líneas
+            this.#ctx.strokeWidth = minute % 5 + 2;
             this.#draw(this.#width / 2, this.#height / 2, secondsPast);
             this.angle = this.angle - (Math.PI * 2 / 60);
         }
