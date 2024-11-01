@@ -6,7 +6,7 @@ let angle;
 let secondsPast = 0;
 let minute = 0;
 let fiveMinutes = 0;
-let fiveMinutesAngle = 0;
+let fiveMinutesAngle = 180;
 let meetingPoint = {
     x: 0,
     y: 0
@@ -22,7 +22,10 @@ window.onload = function() {
     flowField = new FlowFieldEffect(ctx, canvas.width, canvas.height);
     flowField.animate(0);    
 }
-
+/* window.addEventListener("click", stopAnimation);
+function stopAnimation() {
+    this.fpsInterval = 0;
+}; */
 window.addEventListener("resize", resizeAndAnimate);
 
 function resizeAndAnimate() {
@@ -51,15 +54,13 @@ class FlowFieldEffect {
 
         this.fpsInterval = 1000 / 20; // 20 FPS
         this.lastTime = 0;
-        this.segundos = this.angle;
-
         this.strokeWidth = 2; 
         this.#ctx.lineWidth = this.strokeWidth;
 
         // Definir el punto de reunión
         this.meetingPoint = {
-            x: this.#width / 2 + Math.sin(-60) * 150,
-            y: this.#height / 2 + Math.cos(-60) * 150
+            x: (this.#width / 2 + Math.sin(-60) * 300) + 100,
+            y: (this.#height / 2 + Math.cos(-60) * 300) + 100
         };
     }
     
@@ -70,16 +71,20 @@ class FlowFieldEffect {
         }
 
         // Lógica para reunir líneas cada 5 minutos
-        if (minute > 0 && minute % 5 === 0 && (secs % 60 === 0)) {
+        /* if (minute > 0 && minute % 5 === 0 && (secs % 60 === 0)) { */
+        if (secondsPast % 300 === 0) {
             fiveMinutes++;
-            fiveMinutesAngle = (fiveMinutesAngle - 60) % 360;
+            fiveMinutesAngle = (fiveMinutesAngle - 30) % 360;
             console.log("5 minutos: " + fiveMinutes, "fiveMinutesAngle: " + fiveMinutesAngle);
+            
         }
         if (minute > 0 && minute % 5 === 0) {
-            this.animateGathering(fiveMinutesAngle);
+            const gatheringInterval = setInterval(this.animateGathering(fiveMinutesAngle), 1000 * 60 * 5);
+            /* this.animateGathering(fiveMinutesAngle); */
         }
 
         length = secs % 300; // Ajusta el tamaño de las líneas según el tiempo
+        if (length < 30) { length = 30; }
         this.#ctx.beginPath();
         this.#ctx.moveTo(x, y);
         
@@ -94,11 +99,14 @@ class FlowFieldEffect {
     }
 
     animateGathering(fiveMinutesAngle) {
+        /* cancelAnimationFrame(flowFieldAnimation); */
+        
         // Calcular el nuevo punto de reunión basado en el número de reuniones
         const fmaRad = fiveMinutesAngle * Math.PI / 180;
+        console.log("fmaRad: " + fmaRad);
         this.meetingPoint = {
-            x: this.#width / 2 + Math.sin(fmaRad) * 100,
-            y: this.#height / 2 + Math.cos(fmaRad) * 100
+            x: this.#width / 2 + Math.sin(fmaRad) * 200,
+            y: this.#height / 2 + Math.cos(fmaRad) * 200
         };
 
         // Limpiar el canvas donde se dibujan las agujas
@@ -114,8 +122,12 @@ class FlowFieldEffect {
             line.endX += deltaX;
             line.endY += deltaY;
 
+            // Actualizar color segun destino
+            this.#color = fiveMinutesAngle;
+
             // Dibujar la línea en su nueva posición
             this.#ctx.beginPath();
+            this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
             this.#ctx.moveTo(line.startX, line.startY);
             this.#ctx.lineTo(line.endX, line.endY);
             this.#ctx.stroke();
@@ -146,17 +158,18 @@ class FlowFieldEffect {
 
         if (elapsed > this.fpsInterval) {
             this.lastTime = timestamp - (elapsed % this.fpsInterval);
-            this.angle = this.angle - (Math.PI * 2 / 60);
-            console.log("angle: " + this.angle);
-            this.segundos = (Math.abs(this.angle) * 180 / Math.PI);
+            
+            
             this.#color = this.angle * 180 / Math.PI;
-            secondsPast = this.segundos;
+            secondsPast = Math.floor(timestamp / this.fpsInterval) - 1;
+            console.log("secondsPast: " + secondsPast);
             
             // Actualizar el estilo de trazo
             this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
             
             // Dibujar líneas
             this.#draw(this.#width / 2, this.#height / 2, secondsPast);
+            this.angle = this.angle - (Math.PI * 2 / 60);
         }
         flowFieldAnimation = requestAnimationFrame(this.animate.bind(this));
     }
