@@ -88,7 +88,6 @@ class FlowFieldEffect {
         if (minute > 0 && minute % 5 === 0) {
             this.animateGathering(fiveMinutesAngle, secondsPast);
         }
-        //
         if (hour === 1) {
             day++;
             secondsPast = 0;
@@ -115,6 +114,7 @@ class FlowFieldEffect {
             console.log("30/x");
         }
         
+        // Second lines
         length = secs % 300 + Math.random() * 15; // Ajusta el tamaño de las líneas según el tiempo
         if (length < 25) { length = 25 + Math.random() * 15; }
         this.#ctx.beginPath();
@@ -124,6 +124,10 @@ class FlowFieldEffect {
 
         const endX = x + length * Math.sin(this.angle);
         const endY = y + length * Math.cos(this.angle);
+
+        const secondWidth = (minute % 5) + 2;
+
+        this.#ctx.lineWidth = secondWidth;
         
         // Guardar línea dibujada
         lines.push({ startX: x, startY: y, endX: endX, endY: endY }); 
@@ -156,12 +160,18 @@ class FlowFieldEffect {
         this.#ctx.moveTo(x, y);
         const dayColor = Math.abs(dayCenterSpot * 180 / Math.PI);
         this.#ctx.strokeStyle = `hsla(${dayColor}, 100%, 50%, ${this.#alpha})`;
-        const dayLength = 300;
+        this.#ctx.lineWidth = 6;
+        const dayLength = 240;
         const endXDay = x + dayLength * Math.sin(dayCenterSpot);
         const endYDay = y + dayLength * Math.cos(dayCenterSpot);
-        
         this.#ctx.lineTo(endXDay, endYDay);
         this.#ctx.stroke();
+        // Day circle
+        const dayRadius = 20;
+        this.#ctx.beginPath();
+        this.#ctx.arc(endXDay, endYDay, dayRadius, 0, Math.PI * 2);
+        this.#ctx.fillStyle = `hsla(${dayColor}, 100%, 50%, ${this.#alpha})`;
+        this.#ctx.fill();
     }
 
     animateGathering(fiveMinutesAngle, secs) {
