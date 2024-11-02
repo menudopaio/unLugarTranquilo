@@ -7,6 +7,9 @@ let secondsPast = 0;
 let minute = 0;
 let hour = 0;
 let hourAngle = 180;
+let day = 1;
+let month = 1;
+let year = 2024;
 let fiveMinutes = 0;
 let fiveMinutesAngle = 180;
 let meetingPoint = {
@@ -28,9 +31,9 @@ window.onload = function() {
 function stopAnimation() {
     this.fpsInterval = 0;
 }; */
-window.addEventListener("resize", resizeAndAnimate);
+window.addEventListener("resize", resize);
 
-function resizeAndAnimate() {
+function resize() {
     cancelAnimationFrame(flowFieldAnimation);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -69,34 +72,54 @@ class FlowFieldEffect {
     #draw(x, y, secs) {
         if (secondsPast % 60 === 0) {
             minute++;
-            console.log("Minutos: " + minute);
+            console.log("minute: " + minute);
         }
-
-        // Lógica para reunir líneas cada 5 minutos
-        /* if (minute > 0 && minute % 5 === 0 && (secs % 60 === 0)) { */
         if (secondsPast % 300 === 0) {
             fiveMinutes++;
             fiveMinutesAngle = (fiveMinutesAngle - 30) % 360;
-            console.log("5 minutos: " + fiveMinutes, "fiveMinutesAngle: " + fiveMinutesAngle);
+            console.log("fiveMinutes: " + fiveMinutes);
         }
-        if (secondsPast % 120 === 0) {
+        //
+        if (secondsPast % 300 === 0) {
             hour++;
             hourAngle = (hourAngle - 30) % 360;
-            console.log("Hora: " + hour);
-            this.showHour(hour);
+            console.log("hour: " + hour);
         }
         if (minute > 0 && minute % 5 === 0) {
-            /* const gatheringInterval = setInterval(this.animateGathering(fiveMinutesAngle), 1000 * 60 * 5); */
             this.animateGathering(fiveMinutesAngle, secondsPast);
         }
+        //
+        if (hour === 1) {
+            day++;
+            secondsPast = 0;
+            hour = 0;
+            console.log(day + "/" + month + "/" + year);
+        }
+        if (month === 2 && day === 29 && secondsPast === 0) {
+            day = 1;
+            month++;
+            console.log("29/2");
+        }
+        else if ((month === 12) && day === 31 && secondsPast === 0) {
+            day = 1;
+            month++;
+            year++;
+            console.log("31/12");
+        } else if ((month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10) && day === 31 && secondsPast === 0) {
+            day = 1;
+            month++;
+            console.log("31/x");
+        } else if ((month === 4 || month === 6 || month === 9 || month === 11) && day === 30 && secondsPast === 0) {
+            day = 1;
+            month++;
+            console.log("30/x");
+        }
         
-
-        length = secs % 300 + Math.random() * 25; // Ajusta el tamaño de las líneas según el tiempo
-        if (length < 30) { length = 30 + Math.random() * 15; }
+        length = secs % 300 + Math.random() * 15; // Ajusta el tamaño de las líneas según el tiempo
+        if (length < 25) { length = 25 + Math.random() * 15; }
         this.#ctx.beginPath();
         this.#ctx.moveTo(x, y);
         this.#color = this.angle * 180 / Math.PI;
-        this.#ctx.strokeWidth = minute % 5 + 2;
         this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
 
         const endX = x + length * Math.sin(this.angle);
@@ -107,30 +130,38 @@ class FlowFieldEffect {
         
         this.#ctx.lineTo(endX, endY);
         this.#ctx.stroke();
-    }
-
-    showHour(hour) {
-        const horaActual = hour;
-        const horaActualAngle = ((hour * 5) + 180) * Math.PI / 180;
-        console.log("hora: " + hour, "horaAngle: " + horaActualAngle);
         
-
+        // Hour circle
+        const radius = 60;
         this.#ctx.beginPath();
-        this.#ctx.moveTo(this.#width / 2, this.#height / 2);
-        this.#color = horaActual * 180 / Math.PI;
-        
-        this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
+        this.#ctx.arc(x, y, radius, 0, Math.PI * 2);
+        let hourColor = hourAngle;
+        const alpha = 0.01;
+        this.#ctx.fillStyle = `hsla(${hourColor}, 100%, 50%, ${alpha})`;
+        this.#ctx.fill();
 
-        const len = 100;
-        const endX = len * Math.sin(horaActualAngle);
-        const endY = len * Math.cos(horaActualAngle);
+        // Month circle
+        const monthSpot = Math.PI - month * Math.PI / 6;
+        const monthRadius = 23;
+        this.#ctx.beginPath();
+        this.#ctx.arc(x + (150 * Math.sin(monthSpot)), y + (150 * Math.cos(monthSpot)), monthRadius, 0, Math.PI * 2);
+        let monthColor = monthSpot * 180 / Math.PI;
+        const monthAlpha = 0.5;
+        this.#ctx.fillStyle = `hsla(${monthColor}, 100%, 50%, ${monthAlpha})`;
+        this.#ctx.fill();
+
+        // Day line
+        const dayCenterSpot = Math.PI - day * Math.PI / 15;
+        this.#ctx.beginPath();
+        this.#ctx.moveTo(x, y);
+        const dayColor = Math.abs(dayCenterSpot * 180 / Math.PI);
+        this.#ctx.strokeStyle = `hsla(${dayColor}, 100%, 50%, ${this.#alpha})`;
+        const dayLength = 300;
+        const endXDay = x + dayLength * Math.sin(dayCenterSpot);
+        const endYDay = y + dayLength * Math.cos(dayCenterSpot);
         
-        // Guardar línea dibujada
-        lines.push({ startX: this.#width / 2, startY: this.#height / 2, endX: endX, endY: endY }); 
-        
-        this.#ctx.lineTo(endX, endY);
+        this.#ctx.lineTo(endXDay, endYDay);
         this.#ctx.stroke();
-
     }
 
     animateGathering(fiveMinutesAngle, secs) {
@@ -153,8 +184,6 @@ class FlowFieldEffect {
             const deltaX = (this.meetingPoint.x - line.endX) * 0.05; // Movimiento hacia el punto de reunión
             const deltaY = (this.meetingPoint.y - line.endY) * 0.05; // Movimiento hacia el punto de reunión
             
-            
-
             // Actualizar las coordenadas finales
             line.endX += deltaX;
             line.endY += deltaY;
@@ -197,9 +226,8 @@ class FlowFieldEffect {
         if (elapsed > this.fpsInterval) {
             this.lastTime = timestamp - (elapsed % this.fpsInterval);
             
-            
             this.#color = this.angle * 180 / Math.PI;
-            secondsPast = Math.floor(timestamp / this.fpsInterval) - 1;
+            secondsPast = (Math.floor(timestamp / this.fpsInterval) - 1) % 3600;
             console.log("secondsPast: " + secondsPast);
             
             // Actualizar el estilo de trazo
