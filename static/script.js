@@ -51,11 +51,11 @@ class FlowFieldEffect {
     constructor(ctx, width, height) {
         this.#ctx = ctx;
         this.angle = Math.PI;
+        this.#width = width;
+        this.#height = height;
         this.#color = 0;
         this.#alpha = 1;
         this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
-        this.#width = width;
-        this.#height = height;
 
         this.fpsInterval = 1000 / 20; // 20 FPS
         this.lastTime = 0;
@@ -125,9 +125,7 @@ class FlowFieldEffect {
         const endX = x + length * Math.sin(this.angle);
         const endY = y + length * Math.cos(this.angle);
 
-        const secondWidth = (minute % 5) + 2;
-
-        this.#ctx.lineWidth = secondWidth;
+        this.#ctx.lineWidth = (minute % 5) + 2;
         
         // Guardar línea dibujada
         lines.push({ startX: x, startY: y, endX: endX, endY: endY }); 
@@ -172,8 +170,34 @@ class FlowFieldEffect {
         this.#ctx.arc(endXDay, endYDay, dayRadius, 0, Math.PI * 2);
         this.#ctx.fillStyle = `hsla(${dayColor}, 100%, 50%, ${this.#alpha})`;
         this.#ctx.fill();
+
+        // ESTACIONES
+        drawGradientArc(ctx, x, y, 100, 0, 3 * Math.PI / 2); // Dibuja un círculo completo con gradiente
+
+        let sec = secondsPast % 60;
+        let min = minute % 60;
+        let hora = hour % 24;
+        this.#ctx.clearRect(700, 150, 200, -120);
+        if (sec < 10) {
+            sec = `0` + sec;
+            console.log("sec < 10");
+        }
+        if (min < 10) {
+            min = `0` + min;
+            console.log("min < 10");
+        }
+        if (hora < 10) {
+            hora = `0` + hora;
+            console.log("hora < 10");
+        }
+        const str = `${hora}:${min}:${sec}`;
+        this.#ctx.font = "50px Comic";
+        this.#ctx.fillStyle = "white";
+        this.#ctx.fillText(str, 700, 70);
     }
 
+    // Probar:
+    // async animateGathering(fiveMinutesAngle, secs) {
     animateGathering(fiveMinutesAngle, secs) {
         /* cancelAnimationFrame(flowFieldAnimation); */
         
@@ -238,7 +262,7 @@ class FlowFieldEffect {
             
             this.#color = this.angle * 180 / Math.PI;
             secondsPast = (Math.floor(timestamp / this.fpsInterval) - 1) % 3600;
-            console.log("secondsPast: " + secondsPast);
+            console.log("secondsPast: " + secondsPast % 60);
             
             // Actualizar el estilo de trazo
             this.#ctx.strokeStyle = `hsla(${this.#color}, 100%, 50%, ${this.#alpha})`;
@@ -251,3 +275,22 @@ class FlowFieldEffect {
         flowFieldAnimation = requestAnimationFrame(this.animate.bind(this));
     }
 }
+
+function drawGradientArc(ctx, x, y, radius, startAngle, endAngle) {
+    const segments = 100; // Número de segmentos para el gradiente
+    for (let i = 0; i < segments; i++) {
+        const angle1 = startAngle + (i * (endAngle - startAngle)) / segments;
+        const angle2 = startAngle + ((i + 1) * (endAngle - startAngle)) / segments;
+
+        // Calcular el color basado en el ángulo
+        const hue = (angle1 * 180 / Math.PI) % 360; // Mapear ángulo a un valor de tono en grados
+
+        ctx.beginPath();
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; // Gradiente de color basado en el ángulo
+        ctx.lineWidth = 4; // Grosor del arco
+        ctx.arc(x, y, radius, angle1, angle2);
+        ctx.stroke();
+    }
+}
+
+
