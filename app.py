@@ -74,10 +74,10 @@ def constanteCambio():
     return render_template("constante-cambio.html", baseUri=baseUri)
 """
 
-@app.route("/otros/")
-def otros():
+@app.route("/buscandoLimites/")
+def buscandoLimites():
     baseUri = "."
-    return render_template("otros.html", baseUri=baseUri)
+    return render_template("buscandoLimites.html", baseUri=baseUri)
 
 @app.route("/empatia/")
 def empatia():
