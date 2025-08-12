@@ -79,6 +79,16 @@ def otros():
     baseUri = "."
     return render_template("otros.html", baseUri=baseUri)
 
+@app.route("/empatia/")
+def empatia():
+    baseUri = "."
+    return render_template("empatia.html", baseUri=baseUri)
+
+@app.route("/no-saber/")
+def noSaber():
+    baseUri = "."
+    return render_template("no-saber.html", baseUri=baseUri)
+
 if __name__ == '__main__':
     # Esta condición es importante para asegurarse de que la aplicación se ejecute
     # correctamente tanto cuando se ejecuta como una aplicación Flask en vivo

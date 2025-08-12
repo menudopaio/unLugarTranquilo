@@ -1,12 +1,20 @@
 {% extends "layout.html" %}
 
 <!-- Si hace falta añadir algun link -->
-{% block links %} <!-- ___ --> {% endblock %}
+{% block links %}<link rel="stylesheet" href="{{ baseUri }}./static/escritos.css">{% endblock %}
 
 <!-- El titulo en layout.html contiene "Mes Millor". Si se deja el bloque vacio, aparecera solamente Mes Millor -->
-{% block title %} - Clases de Yoga{% endblock %}
+{% block title %}Conversaciones introspectivas{% endblock %}
 
 <!-- Bloque principal (todo menos cabecera y footer) -->
 {% block main %}
-
+    <div class="escritos-page">
+        <section>
+            <h1 class="titulo-pagina">Conversaciones introspectivas</h1>
+            <ul>
+                <li><a href="{{ baseUri }}./empatia">Empatía</a></li>
+                <li><a href="{{ baseUri }}./no-saber">No Saber</a></li>
+            </ul>
+        </section>
+    </div>
 {% endblock %}
