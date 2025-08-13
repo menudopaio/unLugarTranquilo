@@ -38,9 +38,9 @@ header div {
     margin-left: auto;
 }
 header div img {
-    width: 80%;
-    height: 80%;
-    margin: auto;
+    width: 44px;
+    height: auto;
+    margin: 10px auto;
     box-sizing: border-box;
 }
 
