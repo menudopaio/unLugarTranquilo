@@ -28,6 +28,11 @@ def inicio():
     baseUri = ""
     return render_template("home.html", baseUri=baseUri)
 
+@app.route("/about/")
+def about():
+    baseUri = "."
+    return render_template("about.html", baseUri=baseUri)
+
 @app.route("/escritos/")
 def escritos():
     baseUri = "."
