@@ -92,7 +92,7 @@ def noSaber():
 @app.route("/que-soy/")
 def queSoy():
     baseUri = "."
-    return render_template("queSoy.html", baseUri=baseUri)
+    return render_template("que-soy.html", baseUri=baseUri)
 
 if __name__ == '__main__':
     # Esta condición es importante para asegurarse de que la aplicación se ejecute
