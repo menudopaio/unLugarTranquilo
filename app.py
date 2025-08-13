@@ -89,6 +89,11 @@ def noSaber():
     baseUri = "."
     return render_template("no-saber.html", baseUri=baseUri)
 
+@app.route("/que-soy/")
+def queSoy():
+    baseUri = "."
+    return render_template("queSoy.html", baseUri=baseUri)
+
 if __name__ == '__main__':
     # Esta condición es importante para asegurarse de que la aplicación se ejecute
     # correctamente tanto cuando se ejecuta como una aplicación Flask en vivo
