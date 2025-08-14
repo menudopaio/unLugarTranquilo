@@ -8,8 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ baseUri }}./static/responsive.css">
     <link rel="stylesheet" href="{{ baseUri }}./static/styles.css">
     <link rel="stylesheet" href="{{ baseUri }}./static/escritos.css">
+    
     {% block links %}{% endblock %}
 </head>
 <body>
@@ -20,6 +22,9 @@
             <a href="{{ baseUri }}./escritos/">Escritos</a>
             <a href="{{ baseUri }}./buscandoLimites/">Buscando limites</a>
         </nav>
+        <audio controls autoplay loop>
+            <source src="{{ baseUri }}./static/audio/01.DmAmEmEm.wav" type="audio/mpeg">
+        </audio>
         <div>
             <a href="{{ baseUri }}./about/"><img src="{{ baseUri }}./static/images/circulo.svg" alt=""></a>
         </div>

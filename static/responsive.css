@@ -1,14 +1,74 @@
-@media screen and (max-width: 800px) {
-    header nav {
+/* responsive.css */
+@media (max-width: 768px) {
+
+    /* Cabecera */
+    header {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 10px;
+        height: auto;
+        gap: 10px;
+    }
+
+    /* Logo */
+    header img {
+        height: 50px;
         margin: 0 auto;
     }
+
+    /* Navegación */
+    header nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
     header nav a {
-        padding: 0 20px;
+        font-size: 16px;
+        padding: 4px 0;
+        text-align: center;
     }
+
+    /* Icono de usuario o avatar */
+    header div {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    header div a img {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Título principal */
+    .titulo-pagina {
+        font-size: 22px;
+        margin: 15px 0 10px;
+        text-align: center;
+    }
+
+    /* Texto principal */
+    h1, h2, .intro-text {
+        font-size: 18px;
+        text-align: center;
+        margin: 8px 0;
+    }
+
+    /* Contenedor principal */
     main {
-        padding: 20px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
-    .escritos {
-        padding: 10px;
+
+    /* Ajustar elementos sueltos como el óvalo */
+    .estrella, canvas, img.oval {
+        margin: 15px auto;
+        display: block;
     }
 }
