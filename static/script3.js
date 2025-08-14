@@ -58,7 +58,7 @@ class Clock {
             this.drawCircleOfFifths();
 
             // Hora (manecilla fina + círculo)
-            let hourRadius = this.#maxClockRadius;
+            let hourRadius = this.#maxClockRadius / 2;
             this.drawHand(hourAngle, hourRadius, 8, `hsla(${(hourAngle * 180) / Math.PI}, 100%, 50%, ${this.#alpha})`);
             let hourPos = this.polarToCartesian(hourRadius, hourAngle);
             this.drawCircle(hourPos.x, hourPos.y, this.#hourCircleRadius, `hsla(${(hourAngle * 180) / Math.PI}, 100%, 50%, ${this.#alpha})`);
