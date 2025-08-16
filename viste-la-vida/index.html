@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="10"> -->
+    <title>Viste la Vida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/escritos.css">
+    <link rel="stylesheet" href="../static/responsive.css">
+    
+    <link rel="stylesheet" href="../static/productos.css">
+</head>
+<body>
+    <header>
+        <a href="../"><img src="../static/images/yy.jpg" alt="Logo"></a>
+        <nav>
+            <a href="../">Inicio</a>
+            <a href="../escritos/">Escritos</a>
+            <a href="../buscandoLimites/">Buscando limites</a>
+            <a href="../viste-la-vida">Viste la Vida</a>
+        </nav>
+        <!-- <audio controls autoplay loop>
+            <source src="../static/audio/01.DmAmEmEm.wav" type="audio/mpeg">
+        </audio> -->
+        <div>
+            <a href="../about/"><img src="../static/images/circulo.svg" alt=""></a>
+        </div>
+    </header>
+
+    <main>
+<section class="productos-container">
+    <h1 class="titulo-pagina">Viste tu cuerpo o tu casa</h1>
+    <div class="productos-grid">
+        
+        <div class="producto-card">
+            <img src="/static/images/productos/camiseta_azul.jpg" alt="Camiseta Azul">
+            <div class="producto-info">
+                <h2>Camiseta Azul</h2>
+                <p class="precio">19.99 €</p>
+                
+                    <button onclick="comprar('Camiseta Azul')">Comprar</button>
+                
+            </div>
+        </div>
+        
+        <div class="producto-card">
+            <img src="/static/images/productos/poster_minimal.jpg" alt="Póster Minimalista">
+            <div class="producto-info">
+                <h2>Póster Minimalista</h2>
+                <p class="precio">12.5 €</p>
+                
+                    <span class="sin-stock">Sin stock</span>
+                
+            </div>
+        </div>
+        
+        <div class="producto-card">
+            <img src="/static/images/productos/sudadera.jpg" alt="Sudadera Oversize">
+            <div class="producto-info">
+                <h2>Sudadera Oversize</h2>
+                <p class="precio">29.9 €</p>
+                
+                    <button onclick="comprar('Sudadera Oversize')">Comprar</button>
+                
+            </div>
+        </div>
+        
+        <div class="producto-card">
+            <img src="/static/images/productos/sudadera.jpg" alt="Sudadera Oversize">
+            <div class="producto-info">
+                <h2>Sudadera Oversize</h2>
+                <p class="precio">23.9 €</p>
+                
+                    <button onclick="comprar('Sudadera Oversize')">Comprar</button>
+                
+            </div>
+        </div>
+        
+        <div class="producto-card">
+            <img src="/static/images/productos/sudadera.jpg" alt="Sudadera Oversize">
+            <div class="producto-info">
+                <h2>Sudadera Oversize</h2>
+                <p class="precio">21.9 €</p>
+                
+                    <button onclick="comprar('Sudadera Oversize')">Comprar</button>
+                
+            </div>
+        </div>
+        
+        <div class="producto-card">
+            <img src="/static/images/productos/sudadera.jpg" alt="Sudadera Oversize">
+            <div class="producto-info">
+                <h2>Sudadera Oversize</h2>
+                <p class="precio">19.9 €</p>
+                
+                    <button onclick="comprar('Sudadera Oversize')">Comprar</button>
+                
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<script>
+function comprar(id) {
+    alert(id + " añadido al carrito (demo)");
+    // Aquí puedes integrar la llamada a tu backend para procesar la compra o añadir al carrito
+}
+</script>
+</main>
+
+    <footer>
+        
+    </footer>
+    <script src="../static/script3.js"></script>
+</body>
+</html>
