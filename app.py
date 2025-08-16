@@ -28,11 +28,6 @@ def inicio():
     baseUri = ""
     return render_template("home.html", baseUri=baseUri)
 
-@app.route("/about/")
-def about():
-    baseUri = "."
-    return render_template("about.html", baseUri=baseUri)
-
 @app.route("/escritos/")
 def escritos():
     baseUri = "."
@@ -98,6 +93,62 @@ def noSaber():
 def queSoy():
     baseUri = "."
     return render_template("que-soy.html", baseUri=baseUri)
+
+
+@app.route("/about/")
+def about():
+    baseUri = "."
+    return render_template("about.html", baseUri=baseUri)
+
+@app.route("/viste-la-vida/")
+def productos():
+    productos_demo = [
+        {
+            "id_producto": 1,
+            "nombre_producto": "Camiseta Azul",
+            "imagen": "/static/images/productos/camiseta_azul.jpg",
+            "precio": 19.99,
+            "stock": 5
+        },
+        {
+            "id_producto": 2,
+            "nombre_producto": "Póster Minimalista",
+            "imagen": "/static/images/productos/poster_minimal.jpg",
+            "precio": 12.50,
+            "stock": 0
+        },
+        {
+            "id_producto": 3,
+            "nombre_producto": "Sudadera Oversize",
+            "imagen": "/static/images/productos/sudadera.jpg",
+            "precio": 29.90,
+            "stock": 12
+        },
+        {
+            "id_producto": 4,
+            "nombre_producto": "Sudadera Oversize",
+            "imagen": "/static/images/productos/sudadera.jpg",
+            "precio": 23.90,
+            "stock": 12
+        },
+        {
+            "id_producto": 5,
+            "nombre_producto": "Sudadera Oversize",
+            "imagen": "/static/images/productos/sudadera.jpg",
+            "precio": 21.90,
+            "stock": 12
+        },
+        {
+            "id_producto": 6,
+            "nombre_producto": "Sudadera Oversize",
+            "imagen": "/static/images/productos/sudadera.jpg",
+            "precio": 19.90,
+            "stock": 12
+        }
+    ]
+    baseUri = "."
+    return render_template("viste-la-vida.html", baseUri=baseUri, productos=productos_demo)
+
 
 if __name__ == '__main__':
     # Esta condición es importante para asegurarse de que la aplicación se ejecute

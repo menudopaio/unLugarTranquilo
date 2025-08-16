@@ -30,7 +30,7 @@ class Clock {
         this.#ctx = ctx;
         this.#width = width;
         this.#height = height;
-        this.#alpha = 0.85;
+        this.#alpha = 1;
         this.#padding = 10;
         this.#hourCircleRadius = 30;
         this.#minuteCircleRadius = 15;

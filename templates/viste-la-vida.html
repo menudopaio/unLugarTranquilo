@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+<!-- Si hace falta añadir algun link -->
+{% block links %}<link rel="stylesheet" href="{{ baseUri }}./static/productos.css">{% endblock %}
+
+<!-- El titulo en layout.html contiene "Mes Millor". Si se deja el bloque vacio, aparecera solamente Mes Millor -->
+{% block title %}Viste la Vida{% endblock %}
+
+<!-- Bloque principal (todo menos cabecera y footer) -->
+{% block main %}
+<section class="productos-container">
+    <h1 class="titulo-pagina">Viste tu cuerpo o tu casa</h1>
+    <div class="productos-grid">
+        {% for producto in productos %}
+        <div class="producto-card">
+            <img src="{{ producto.imagen }}" alt="{{ producto.nombre_producto }}">
+            <div class="producto-info">
+                <h2>{{ producto.nombre_producto }}</h2>
+                <p class="precio">{{ producto.precio }} €</p>
+                {% if producto.stock > 0 %}
+                    <button onclick="comprar('{{ producto.nombre_producto }}')">Comprar</button>
+                {% else %}
+                    <span class="sin-stock">Sin stock</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<script>
+function comprar(id) {
+    alert(id + " añadido al carrito (demo)");
+    // Aquí puedes integrar la llamada a tu backend para procesar la compra o añadir al carrito
+}
+</script>
+{% endblock %}

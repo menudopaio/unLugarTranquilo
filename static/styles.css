@@ -49,6 +49,10 @@ main {
     width:100%;
     padding: 40px;
 }
+
+.inicio-page .cabecera .titulo-pagina {
+    margin-bottom: 50px;
+}
 .titulo-pagina {
     width: 100%;
     margin: 25px auto;
@@ -68,7 +72,7 @@ main {
     font-weight: 600;
     color: var(--color-rosa);
 }
-.escritos, .inicio-page {
+.escritos {
     padding: 30px 120px;
 }
 
