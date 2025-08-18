@@ -3,6 +3,7 @@ import os
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from flask_frozen import Freezer
+import sqlite3
 
 # Configure application
 app = Flask(__name__)
@@ -23,6 +24,43 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 Session(app)
 
+
+def get_productos():
+    conn = sqlite3.connect("shop.db")
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    # Traemos productos con variantes
+    cur.execute("""
+        SELECT p.id AS product_id, p.design_name, p.base_price,
+               p.image_url_front, p.image_url_back,
+               v.id AS variant_id, v.product_size, v.stock
+        FROM products p
+        JOIN product_variants v ON p.id = v.product_id
+        ORDER BY p.id
+    """)
+    rows = cur.fetchall()
+    conn.close()
+
+    # Estructuramos datos
+    productos = {}
+    for r in rows:
+        pid = r["product_id"]
+        if pid not in productos:
+            productos[pid] = {
+                "nombre_producto": r["design_name"],
+                "precio": r["base_price"],
+                "imagen_front": r["image_url_front"],
+                "imagen_back": r["image_url_back"],
+                "variantes": []
+            }
+        productos[pid]["variantes"].append({
+            "id": r["variant_id"],
+            "size": r["product_size"],
+            "stock": r["stock"]
+        })
+    return list(productos.values())
+
 @app.route("/")
 def inicio():
     baseUri = ""
@@ -32,6 +70,7 @@ def inicio():
 def escritos():
     baseUri = "."
     return render_template("escritos.html", baseUri=baseUri)
+
 @app.route("/el-sentido-de-la-vida/")
 def elSentidoDeLaVida():
     baseUri = "."
@@ -100,54 +139,16 @@ def about():
     baseUri = "."
     return render_template("about.html", baseUri=baseUri)
 
+# @app.route("/viste-la-vida/")
+# def productos():
+#     baseUri = "."
+#     return render_template("viste-la-vida.html", baseUri=baseUri)
 @app.route("/viste-la-vida/")
 def productos():
-    productos_demo = [
-        {
-            "id_producto": 1,
-            "nombre_producto": "Camiseta Azul",
-            "imagen": "/static/images/productos/camiseta_azul.jpg",
-            "precio": 19.99,
-            "stock": 5
-        },
-        {
-            "id_producto": 2,
-            "nombre_producto": "Póster Minimalista",
-            "imagen": "/static/images/productos/poster_minimal.jpg",
-            "precio": 12.50,
-            "stock": 0
-        },
-        {
-            "id_producto": 3,
-            "nombre_producto": "Sudadera Oversize",
-            "imagen": "/static/images/productos/sudadera.jpg",
-            "precio": 29.90,
-            "stock": 12
-        },
-        {
-            "id_producto": 4,
-            "nombre_producto": "Sudadera Oversize",
-            "imagen": "/static/images/productos/sudadera.jpg",
-            "precio": 23.90,
-            "stock": 12
-        },
-        {
-            "id_producto": 5,
-            "nombre_producto": "Sudadera Oversize",
-            "imagen": "/static/images/productos/sudadera.jpg",
-            "precio": 21.90,
-            "stock": 12
-        },
-        {
-            "id_producto": 6,
-            "nombre_producto": "Sudadera Oversize",
-            "imagen": "/static/images/productos/sudadera.jpg",
-            "precio": 19.90,
-            "stock": 12
-        }
-    ]
     baseUri = "."
-    return render_template("viste-la-vida.html", baseUri=baseUri, productos=productos_demo)
+    productos = get_productos()
+    return render_template("viste-la-vida.html", baseUri=baseUri, productos=productos)
+
 
 
 if __name__ == '__main__':

@@ -1,0 +1,91 @@
+-- Crear tablas principales
+CREATE TABLE categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category_id INTEGER NOT NULL,
+    design_name TEXT NOT NULL,
+    base_price REAL NOT NULL,
+    image_url TEXT,
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+    UNIQUE (category_id, design_name)
+);
+
+-- Cada referencia concreta: producto + diseño + talla
+CREATE TABLE product_variants (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER NOT NULL,
+    size TEXT NOT NULL,
+    stock INTEGER NOT NULL DEFAULT 0,
+    reference_code TEXT NOT NULL UNIQUE,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    UNIQUE (product_id, size)
+);
+
+-- Tabla de usuarios (clientes)
+CREATE TABLE customers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    address TEXT
+);
+
+-- Pedidos
+CREATE TABLE orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id INTEGER NOT NULL,
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status TEXT NOT NULL DEFAULT 'pending',
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+-- Detalle de pedido (líneas de productos)
+CREATE TABLE order_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL,
+    product_variant_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    unit_price REAL NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_variant_id) REFERENCES product_variants(id)
+);
+
+-- Inserción de categorías
+INSERT INTO categories (name) VALUES
+('Camisetas'),
+('Sudaderas'),
+('Accesorios');
+
+-- Ejemplo de productos base
+INSERT INTO products (category_id, design_name, base_price, image_url) VALUES
+(1, 'Camiseta Azul', 19.99, 'camiseta_azul.jpg'),
+(1, 'Camiseta Roja', 21.99, 'camiseta_roja.jpg'),
+(2, 'Sudadera Negra', 34.99, 'sudadera_negra.jpg'),
+(3, 'Bolso Cuero', 49.99, 'bolso_cuero.jpg');
+
+-- Variantes con talla + stock + referencia única
+INSERT INTO product_variants (product_id, size, stock, reference_code) VALUES
+(1, 'S', 10, 'CAMI_AZUL_S'),
+(1, 'M', 15, 'CAMI_AZUL_M'),
+(1, 'L', 8,  'CAMI_AZUL_L'),
+(2, 'M', 5,  'CAMI_ROJA_M'),
+(2, 'L', 7,  'CAMI_ROJA_L'),
+(3, 'M', 12, 'SUDA_NEGRA_M'),
+(3, 'L', 6,  'SUDA_NEGRA_L'),
+(4, 'U', 4,  'BOLSO_CUERO_U');  -- talla única
+
+-- Ejemplo de cliente
+INSERT INTO customers (name, email, address) VALUES
+('Juan Pérez', 'juan@example.com', 'Calle Mayor 123');
+
+-- Ejemplo de pedido
+INSERT INTO orders (customer_id, status) VALUES
+(1, 'pending');
+
+-- Ejemplo de línea de pedido
+INSERT INTO order_items (order_id, product_variant_id, quantity, unit_price) VALUES
+(1, 2, 1, 19.99),
+(1, 8, 1, 49.99);

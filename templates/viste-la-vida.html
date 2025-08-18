@@ -1,27 +1,44 @@
 {% extends "layout.html" %}
 
-<!-- Si hace falta añadir algun link -->
-{% block links %}<link rel="stylesheet" href="{{ baseUri }}./static/productos.css">{% endblock %}
+{% block links %}
+<link rel="stylesheet" href="{{ baseUri }}./static/productos.css">
+{% endblock %}
 
-<!-- El titulo en layout.html contiene "Mes Millor". Si se deja el bloque vacio, aparecera solamente Mes Millor -->
 {% block title %}Viste la Vida{% endblock %}
 
-<!-- Bloque principal (todo menos cabecera y footer) -->
 {% block main %}
 <section class="productos-container">
-    <h1 class="titulo-pagina">Viste tu cuerpo o tu casa</h1>
+    <h1 class="titulo-pagina">Viste tu Templo</h1>
     <div class="productos-grid">
         {% for producto in productos %}
-        <div class="producto-card">
-            <img src="{{ producto.imagen }}" alt="{{ producto.nombre_producto }}">
+        <div class="producto-card" 
+             data-variantes='{{ producto.variantes | tojson }}'>
+            <div class="imagen-container">
+                <img class="front" src="{{ baseUri }}./static/images/{{ producto.imagen_front }}" alt="{{ baseUri }}./static/images/{{ producto.imagen_front }}">
+                <img class="back" src="{{ baseUri }}./static/images/{{ producto.imagen_back }}" alt="{{ baseUri }}./static/images/{{ producto.imagen_back }}">
+            </div>
             <div class="producto-info">
                 <h2>{{ producto.nombre_producto }}</h2>
                 <p class="precio">{{ producto.precio }} €</p>
-                {% if producto.stock > 0 %}
-                    <button onclick="comprar('{{ producto.nombre_producto }}')">Comprar</button>
-                {% else %}
-                    <span class="sin-stock">Sin stock</span>
-                {% endif %}
+
+                <label for="size-{{ loop.index }}">Talla:</label>
+                <select class="size-select" id="size-{{ loop.index }}">
+                    {% for variante in producto.variantes %}
+                        <option value="{{ variante.id }}" data-stock="{{ variante.stock }}">
+                            {{ variante.size }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <div class="stock-container">
+                    {% set stock_inicial = producto.variantes[0].stock %}
+                    {% if stock_inicial > 0 %}
+                        <button class="btn-comprar">Comprar</button>
+                    {% else %}
+                        <button class="btn-comprar" disabled>Comprar</button>
+                        <span class="sin-stock">Sin stock</span>
+                    {% endif %}
+                </div>
             </div>
         </div>
         {% endfor %}
@@ -29,9 +46,31 @@
 </section>
 
 <script>
-function comprar(id) {
-    alert(id + " añadido al carrito (demo)");
-    // Aquí puedes integrar la llamada a tu backend para procesar la compra o añadir al carrito
-}
+document.querySelectorAll(".producto-card").forEach(card => {
+    const select = card.querySelector(".size-select");
+    const btn = card.querySelector(".btn-comprar");
+    let sinStockSpan = card.querySelector(".sin-stock");
+
+    select.addEventListener("change", () => {
+        const selected = select.options[select.selectedIndex];
+        const stock = parseInt(selected.getAttribute("data-stock"), 10);
+
+        if (stock > 0) {
+            btn.disabled = false;
+            if (sinStockSpan) {
+                sinStockSpan.remove();
+                sinStockSpan = null;
+            }
+        } else {
+            btn.disabled = true;
+            if (!sinStockSpan) {
+                sinStockSpan = document.createElement("span");
+                sinStockSpan.className = "sin-stock";
+                sinStockSpan.textContent = "Sin stock";
+                card.querySelector(".stock-container").appendChild(sinStockSpan);
+            }
+        }
+    });
+});
 </script>
 {% endblock %}
