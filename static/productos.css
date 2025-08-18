@@ -12,13 +12,14 @@
 
 .producto-card {
     background: white;
-    border: 1px solid #ccc; /* Borde visible aunque no haya imagen */
+    border: 1px solid #ccc;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%; /* todas las tarjetas ocupan la misma altura del grid */
 }
 
 .producto-card:hover {
@@ -26,23 +27,40 @@
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
 
-.producto-card img {
+/* --- Imágenes con placeholder fijo --- */
+.imagen-container {
+    position: relative;
     width: 100%;
-    height: 180px;
-    object-fit: cover;
-    background-color: #eee; /* fondo gris como placeholder */
-    display: block;
+    height: 220px;              /* Altura fija para todas las tarjetas */
+    background-color: #eee;     /* Placeholder si no hay imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
-
-.producto-card img[src=""], 
-.producto-card img:not([src]) {
-    background-color: #eee;
-    content: "";
+.imagen-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s ease;
+}
+.imagen-container img.back {
+    opacity: 0;
+}
+.producto-card:hover .imagen-container img.front {
+    opacity: 0;
+}
+.producto-card:hover .imagen-container img.back {
+    opacity: 1;
 }
 
 .producto-info {
     padding: 15px;
     text-align: center;
+    flex-grow: 1; /* para que el contenido ocupe espacio y todas las tarjetas tengan altura consistente */
 }
 
 .producto-info h2 {
@@ -58,6 +76,13 @@
     margin-bottom: 10px;
 }
 
+.size-select {
+    margin: 10px 0;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
 button {
     background-color: var(--color-azul, #004d4d);
     color: white;
@@ -68,7 +93,12 @@ button {
     font-size: 14px;
 }
 
-button:hover {
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+button:hover:enabled {
     background-color: #368f8f;
 }
 
@@ -79,4 +109,5 @@ button:hover {
     border-radius: 6px;
     color: #555;
     font-size: 14px;
+    margin-left: 6px;
 }

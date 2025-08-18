@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="../static/escritos.css">
     <link rel="stylesheet" href="../static/responsive.css">
     
-    <link rel="stylesheet" href="../static/productos.css">
+    
+<link rel="stylesheet" href="../static/productos.css">
+
 </head>
 <body>
     <header>
@@ -34,72 +36,134 @@
 
     <main>
 <section class="productos-container">
-    <h1 class="titulo-pagina">Viste tu cuerpo o tu casa</h1>
+    <h1 class="titulo-pagina">Viste tu Templo</h1>
     <div class="productos-grid">
         
-        <div class="producto-card">
-            <img src="/static/images/productos/camiseta_azul.jpg" alt="Camiseta Azul">
-            <div class="producto-info">
-                <h2>Camiseta Azul</h2>
-                <p class="precio">19.99 €</p>
-                
-                    <button onclick="comprar('Camiseta Azul')">Comprar</button>
-                
+        <div class="producto-card" 
+             data-variantes='[{"id": 3, "size": "L", "stock": 8}, {"id": 2, "size": "M", "stock": 15}, {"id": 1, "size": "S", "stock": 10}]'>
+            <div class="imagen-container">
+                <img class="front" src="../static/images/camiseta_que_soy_front.webp" alt="../static/images/camiseta_que_soy_front.webp">
+                <img class="back" src="../static/images/camiseta_que_soy_back.webp" alt="../static/images/camiseta_que_soy_back.webp">
             </div>
-        </div>
-        
-        <div class="producto-card">
-            <img src="/static/images/productos/poster_minimal.jpg" alt="Póster Minimalista">
             <div class="producto-info">
-                <h2>Póster Minimalista</h2>
-                <p class="precio">12.5 €</p>
-                
-                    <span class="sin-stock">Sin stock</span>
-                
-            </div>
-        </div>
-        
-        <div class="producto-card">
-            <img src="/static/images/productos/sudadera.jpg" alt="Sudadera Oversize">
-            <div class="producto-info">
-                <h2>Sudadera Oversize</h2>
-                <p class="precio">29.9 €</p>
-                
-                    <button onclick="comprar('Sudadera Oversize')">Comprar</button>
-                
-            </div>
-        </div>
-        
-        <div class="producto-card">
-            <img src="/static/images/productos/sudadera.jpg" alt="Sudadera Oversize">
-            <div class="producto-info">
-                <h2>Sudadera Oversize</h2>
-                <p class="precio">23.9 €</p>
-                
-                    <button onclick="comprar('Sudadera Oversize')">Comprar</button>
-                
-            </div>
-        </div>
-        
-        <div class="producto-card">
-            <img src="/static/images/productos/sudadera.jpg" alt="Sudadera Oversize">
-            <div class="producto-info">
-                <h2>Sudadera Oversize</h2>
-                <p class="precio">21.9 €</p>
-                
-                    <button onclick="comprar('Sudadera Oversize')">Comprar</button>
-                
-            </div>
-        </div>
-        
-        <div class="producto-card">
-            <img src="/static/images/productos/sudadera.jpg" alt="Sudadera Oversize">
-            <div class="producto-info">
-                <h2>Sudadera Oversize</h2>
+                <h2>Camiseta Que Soy</h2>
                 <p class="precio">19.9 €</p>
-                
-                    <button onclick="comprar('Sudadera Oversize')">Comprar</button>
-                
+
+                <label for="size-1">Talla:</label>
+                <select class="size-select" id="size-1">
+                    
+                        <option value="3" data-stock="8">
+                            L
+                        </option>
+                    
+                        <option value="2" data-stock="15">
+                            M
+                        </option>
+                    
+                        <option value="1" data-stock="10">
+                            S
+                        </option>
+                    
+                </select>
+
+                <div class="stock-container">
+                    
+                    
+                        <button class="btn-comprar">Comprar</button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="producto-card" 
+             data-variantes='[{"id": 5, "size": "L", "stock": 7}, {"id": 4, "size": "M", "stock": 5}]'>
+            <div class="imagen-container">
+                <img class="front" src="../static/images/camiseta_empatia_front.jpg" alt="../static/images/camiseta_empatia_front.jpg">
+                <img class="back" src="../static/images/camiseta_empatia_back.jpg" alt="../static/images/camiseta_empatia_back.jpg">
+            </div>
+            <div class="producto-info">
+                <h2>Camiseta Empatia</h2>
+                <p class="precio">21.9 €</p>
+
+                <label for="size-2">Talla:</label>
+                <select class="size-select" id="size-2">
+                    
+                        <option value="5" data-stock="7">
+                            L
+                        </option>
+                    
+                        <option value="4" data-stock="5">
+                            M
+                        </option>
+                    
+                </select>
+
+                <div class="stock-container">
+                    
+                    
+                        <button class="btn-comprar">Comprar</button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="producto-card" 
+             data-variantes='[{"id": 7, "size": "L", "stock": 6}, {"id": 6, "size": "M", "stock": 12}]'>
+            <div class="imagen-container">
+                <img class="front" src="../static/images/sudadera_que_soy_front.jpg" alt="../static/images/sudadera_que_soy_front.jpg">
+                <img class="back" src="../static/images/sudadera_que_soy_back.jpg" alt="../static/images/sudadera_que_soy_back.jpg">
+            </div>
+            <div class="producto-info">
+                <h2>Sudadera Que Soy</h2>
+                <p class="precio">34.9 €</p>
+
+                <label for="size-3">Talla:</label>
+                <select class="size-select" id="size-3">
+                    
+                        <option value="7" data-stock="6">
+                            L
+                        </option>
+                    
+                        <option value="6" data-stock="12">
+                            M
+                        </option>
+                    
+                </select>
+
+                <div class="stock-container">
+                    
+                    
+                        <button class="btn-comprar">Comprar</button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="producto-card" 
+             data-variantes='[{"id": 8, "size": "U", "stock": 4}]'>
+            <div class="imagen-container">
+                <img class="front" src="../static/images/bolso_marioneta_front.jpg" alt="../static/images/bolso_marioneta_front.jpg">
+                <img class="back" src="../static/images/bolso_marioneta_back.jpg" alt="../static/images/bolso_marioneta_back.jpg">
+            </div>
+            <div class="producto-info">
+                <h2>Bolso Marioneta</h2>
+                <p class="precio">39.9 €</p>
+
+                <label for="size-4">Talla:</label>
+                <select class="size-select" id="size-4">
+                    
+                        <option value="8" data-stock="4">
+                            U
+                        </option>
+                    
+                </select>
+
+                <div class="stock-container">
+                    
+                    
+                        <button class="btn-comprar">Comprar</button>
+                    
+                </div>
             </div>
         </div>
         
@@ -107,16 +171,37 @@
 </section>
 
 <script>
-function comprar(id) {
-    alert(id + " añadido al carrito (demo)");
-    // Aquí puedes integrar la llamada a tu backend para procesar la compra o añadir al carrito
-}
+document.querySelectorAll(".producto-card").forEach(card => {
+    const select = card.querySelector(".size-select");
+    const btn = card.querySelector(".btn-comprar");
+    let sinStockSpan = card.querySelector(".sin-stock");
+
+    select.addEventListener("change", () => {
+        const selected = select.options[select.selectedIndex];
+        const stock = parseInt(selected.getAttribute("data-stock"), 10);
+
+        if (stock > 0) {
+            btn.disabled = false;
+            if (sinStockSpan) {
+                sinStockSpan.remove();
+                sinStockSpan = null;
+            }
+        } else {
+            btn.disabled = true;
+            if (!sinStockSpan) {
+                sinStockSpan = document.createElement("span");
+                sinStockSpan.className = "sin-stock";
+                sinStockSpan.textContent = "Sin stock";
+                card.querySelector(".stock-container").appendChild(sinStockSpan);
+            }
+        }
+    });
+});
 </script>
 </main>
 
     <footer>
         
     </footer>
-    <script src="../static/script3.js"></script>
 </body>
 </html>
