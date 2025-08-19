@@ -29,3 +29,38 @@ blockquote:hover {
     margin-bottom: 1rem;
     white-space: pre-line;
 }
+
+
+/* Estilos responsivos para móvil */
+@media (max-width: 600px) {
+    .conversaciones-page {
+        margin: 1rem;
+        padding: 0.5rem;
+        font-size: 14px;
+    }
+
+    .cabecera {
+        text-align: center;
+    }
+
+    .cabecera .fecha {
+        font-size: 12px;
+        margin-bottom: 0.3rem;
+    }
+
+    .cabecera .titulo-pagina {
+        font-size: 20px;
+        line-height: 1.3;
+    }
+
+    blockquote {
+        padding: 0.8rem;
+        font-size: 14px;
+    }
+
+    .user, .assistant {
+        font-size: 14px;
+        margin-top: 1rem;
+    }
+
+}
