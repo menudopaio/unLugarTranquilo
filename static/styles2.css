@@ -279,6 +279,18 @@ canvas {
         margin: 15px auto;
         display: block;
     }
+
+    /* textos en .escritos */
+    .escritos {
+        padding: 20px 30px; /* menos padding lateral */
+    }
+
+    .escritos p, section p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-top: 10px;
+        text-align: justify;
+    }
 }
 
 /* hasta 600px */
@@ -319,5 +331,17 @@ canvas {
 
     canvas {
         max-width: 90vw;
+    }
+
+    /* textos en .escritos */
+    .escritos {
+        padding: 15px 20px;
+    }
+
+    .escritos p, section p {
+        font-size: 15px;
+        line-height: 1.5;
+        margin-top: 8px;
+        text-align: left; /* lectura más cómoda en móviles */
     }
 }
