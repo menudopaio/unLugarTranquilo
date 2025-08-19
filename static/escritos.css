@@ -14,3 +14,10 @@
     text-decoration: none;
     color: var(--color-rosa);
 }
+
+/* Estilos responsivos para móvil */
+@media (max-width: 600px) {
+    .escritos-page ul li a {
+        font-size: 16px;
+    }
+}
