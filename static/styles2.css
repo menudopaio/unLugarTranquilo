@@ -207,11 +207,9 @@ blockquote:hover {
 canvas {
     display: block;
     margin: auto;
-    width: 100%;
-    max-width: 70vw;
-    aspect-ratio: 2 / 1; /* círculo perfecto */
     background-color: black;
-    border-radius: 50%;
+    width: 100%;        /* ocupa todo el ancho del contenedor */
+    height: auto;       /* altura proporcional (la fijamos en JS) */
 }
 
 /* ==============================
