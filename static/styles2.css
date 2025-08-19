@@ -103,7 +103,8 @@ main {
 }
 
 .escritos p,
-.inicio-page p {
+.inicio-page p,
+.conversaciones-page p {
     text-indent: 2em;
     line-height: 1.8;
     margin-top: 13px;
@@ -285,7 +286,10 @@ canvas {
         padding: 20px 30px; /* menos padding lateral */
     }
 
-    .escritos p, section p {
+    .user, .assistant {
+        text-align: left;
+    }
+    .escritos p, section p, .escritos .message {
         font-size: 16px;
         line-height: 1.6;
         margin-top: 10px;
